@@ -26,12 +26,27 @@ public class Booking {
 		this.customer = customer;
 	}
 	
-	
+	//check taxi availability by time
+	private boolean checkTAxiByTime(Taxi taxi) {
+		
+		 return customer.getCurrentTime()>taxi.getTimeforCompletionOfTrip();
+			 
+	}
+	private void setStatus(Taxi taxi) {
+		
+		 if(checkTAxiByTime(taxi)) {
+			taxi.setTaxiStatus('F');
+		}
+		else {
+			taxi.setTaxiStatus('N');
+		}
+	}
 	
 	//Checking available Taxi at given time
 	private int checkAvailabilty() {
 		int n=taxiList.size();
 		for(int i=0;i<n;i++) {
+			setStatus(taxiList.get(i));
 			if(taxiList.get(i).getTaxiStatus()=='F') {
 				taxiAllocated=checkMinDistance(i);
 			}
@@ -53,17 +68,20 @@ public class Booking {
 		int distanceOfJourney=Math.abs(custDestLocation-custLocation);
 
 	     int timeForCompletion =customer.getCurrentTime()+(distanceOfJourney/100);
+	    
 	     if(customer.getCurrentTime()<timeForCompletion) {
 	    	 taxiList.get(taxiAllocated).setTaxiStatus('N');
 	    	 allocatedTaxi.setTaxiStatus('N');
 	    	 System.out.println("Taxi"+ allocatedTaxi.getTaxiId()+" "+"is allocated");
+	    	 taxiList.get(taxiAllocated).setTimeforCompletionOfTrip(timeForCompletion);
 	    	 allocatedTaxi.setTaxiEarnings(new BigDecimal(5).multiply(new BigDecimal(distanceOfJourney)));
 	    	 taxiList.get(taxiAllocated).setTaxiEarnings(new BigDecimal(5).multiply(new BigDecimal(distanceOfJourney)));
 	    	 System.out.println("Amount Earned"+allocatedTaxi.getTaxiEarnings());
 	     }
 	     else {
 	    	 allocatedTaxi.setTaxiStatus('F');
-	    	 taxiList.get(taxiAllocated).setTaxiStatus('N');
+	    	 taxiList.get(taxiAllocated).setTaxiStatus('F');
+	    	 taxiList.get(taxiAllocated).setTimeforCompletionOfTrip(0);
 	     }
 		
 	}

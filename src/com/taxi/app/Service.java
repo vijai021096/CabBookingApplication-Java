@@ -22,7 +22,7 @@ public class Service {
 		taxiList.add(taxi4);
 		
 		Scanner s=new Scanner(System.in);
-		int t=5;		
+		int t=10;		
 	    while(t-->0) {
 	    	int custId=s.nextInt();
 	    	String custName=s.next();
