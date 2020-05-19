@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Service {
 
-	public static void main(String ab[]) {
+	public static void main(String[] ab) {
 		Taxi taxi=new Taxi(1,1234,'F',Location.MDU);
 		Taxi taxi1=new Taxi(2,2345,'F',Location.MDU);
 		Taxi taxi2=new Taxi(3,346,'F',Location.MDU);
@@ -35,8 +35,8 @@ public class Service {
 	    	booking.setTaxiList(taxiList);
 	    	booking.setCustomer(customer);
 	    	booking.allocateTaxi();
-	    	
 	    }
+	    s.close();
 	}
 	
 }
